@@ -3,40 +3,27 @@ import formatCurrency from "../util";
 import Fade from "react-reveal/Fade";
 import Modal from "react-modal";
 import Zoom from "react-reveal/Zoom";
-import { connect } from "react-redux";
-import { fetchProducts } from "../actions/productActions";
-import products from "../data.json";
 
-class Products extends Component {
+export default class Products extends Component {
   constructor(props) {
     super(props);
     this.state = {
       product: null,
     };
   }
-  componentDidMount() {
-    this.props.fetchProducts();
-  }
-
   openModal = (product) => {
     this.setState({ product });
   };
-
   closeModal = () => {
     this.setState({ product: null });
   };
 
   render() {
     const { product } = this.state;
-
     return (
       <div>
         <Fade bottom cascade>
-          {
-            !this.props.products ? (
-            <div>Loading...</div>
-              ) : (
-                <ul className="products">
+          <ul className="products">
             {this.props.products.map((product) => (
               <li key={product._id}>
                 <div className="product">
@@ -60,15 +47,12 @@ class Products extends Component {
               </li>
             ))}
           </ul>
-              )
-          }
-          
         </Fade>
         {product && (
           <Modal isOpen={true} onRequestClose={this.closeModal}>
             <Zoom>
               <button className="close-modal" onClick={this.closeModal}>
-                close
+                X
               </button>
               <div className="product-details">
                 <img src={product.image} alt={product.title} />
@@ -78,11 +62,11 @@ class Products extends Component {
                   </p>
                   <p>{product.description}</p>
                   <p>
-                    Available Sizes
-                    {product.availableSizes.map((size) => (
+                    Available Sizes:{" "}
+                    {product.availableSizes.map((x) => (
                       <span>
                         {" "}
-                        <button className="button">{size}</button>
+                        <button className="button">{x}</button>
                       </span>
                     ))}
                   </p>
@@ -91,16 +75,13 @@ class Products extends Component {
                     <button
                       className="button primary"
                       onClick={() => {
-                        this.props.addToCart(product);
+                        this.addToCart(product);
                         this.closeModal();
                       }}
-                    >
-                      Add To Cart
-                    </button>
+                    ></button>
                   </div>
                 </div>
               </div>
-              <div>Modal</div>
             </Zoom>
           </Modal>
         )}
@@ -108,6 +89,6 @@ class Products extends Component {
     );
   }
 }
-export default connect((state) => ({ products: state.products.items }), {
-  fetchProducts,
-})(Products);
+// export default connect((state) => ({ products: state.products.items }), {
+//   fetchProducts,
+// })(Products);
