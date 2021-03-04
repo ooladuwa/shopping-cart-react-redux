@@ -235,7 +235,7 @@ Demo: https://reactredux-shoppingcart.herokuapp.com/
       35. send pull request and merge
       36. update spreadsheet
    2. Add Redux To Filter
-      1. Updte task and branch
+      1. Update task and branch
       2. types.js
       3. create FILTER_PRODUCTS_BY_SIZE
       4. create ORDER_PRODUCTS_BY_PRICE
